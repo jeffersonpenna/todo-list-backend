@@ -5,7 +5,48 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(uuid())
+  first_name String
+  last_name  String
+  email      String   @unique
+  password   String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  projects Project[]
+  @@map("users")
+}
+
+model Project {
+  id         String   @id @default(uuid())
+  user_id    String
+  name       String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user  User   @relation(fields: [user_id], references: [id])
+  tasks Task[]
+  @@map("projects")
+}
+
+model Task {
+  id         String   @id @default(uuid())
+  project_id String
+  name       String
+  isDone     Boolean  @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  project Project @relation(fields: [project_id], references: [id])
+  @@map("taks")
 }

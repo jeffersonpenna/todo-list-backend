@@ -9,7 +9,6 @@ const app = express()
 
 app.use(express.json())
 
-// v1 api routes
 app.use('/api/v1', routes)
 
 app.use(interceptAsyncError)
