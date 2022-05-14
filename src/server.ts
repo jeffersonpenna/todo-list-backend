@@ -1,7 +1,5 @@
-import express from 'express'
+import { app } from './app'
 
-const app = express()
+const { NODE_PORT } = process.env
 
-app.get('/', (request, response) => response.json({ siteName: 'TODO List' }))
-
-app.listen(3333)
+app.listen(NODE_PORT, () => console.log(`Server is running on PORT ${NODE_PORT}`))
