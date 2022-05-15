@@ -7,3 +7,4 @@ docker build -t todolist .
 docker run -it -p 3000:3000 todolist
 
 npx prisma migrate dev
+npx prisma generate

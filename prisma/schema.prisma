@@ -30,7 +30,7 @@ model User {
 model Project {
   id        String   @id @default(uuid())
   userId    String   @map("user_id")
-  name      String   @unique
+  name      String
   createdAt DateTime @default(now()) @map("create_at")
   updatedAt DateTime @updatedAt @map("update_at")
 
