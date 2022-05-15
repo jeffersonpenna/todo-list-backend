@@ -15,38 +15,38 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  first_name String
-  last_name  String
-  email      String   @unique
-  password   String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id        String   @id @default(uuid())
+  firstName String   @map("first_name")
+  lastName  String   @map("last_name")
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("create_at")
+  updatedAt DateTime @updatedAt @map("update_at")
 
   projects Project[]
   @@map("users")
 }
 
 model Project {
-  id         String   @id @default(uuid())
-  user_id    String
-  name       String   @unique
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  name      String   @unique
+  createdAt DateTime @default(now()) @map("create_at")
+  updatedAt DateTime @updatedAt @map("update_at")
 
-  user  User   @relation(fields: [user_id], references: [id])
+  user  User   @relation(fields: [userId], references: [id])
   tasks Task[]
   @@map("projects")
 }
 
 model Task {
-  id         String   @id @default(uuid())
-  project_id String
-  name       String
-  isDone     Boolean  @default(false)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id        String   @id @default(uuid())
+  projectId String   @map("project_id")
+  name      String
+  isDone    Boolean  @default(false) @map("is_done")
+  createdAt DateTime @default(now()) @map("create_at")
+  updatedAt DateTime @updatedAt @map("update_at")
 
-  project Project @relation(fields: [project_id], references: [id])
+  project Project @relation(fields: [projectId], references: [id])
   @@map("taks")
 }
