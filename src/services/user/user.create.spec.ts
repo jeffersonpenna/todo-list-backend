@@ -31,16 +31,16 @@ describe('Create user', () => {
 
   it('should not be able to create an existing user', async () => {
     const userData: User = {
-      firstName: 'Jefferson',
-      lastName: 'Penna',
-      email: 'penna.jefferson@gmail.com',
+      firstName: 'John',
+      lastName: 'Wick',
+      email: 'johnwick@gmail.com',
       password: 'Senha1234'
     }
 
     await userCreateService.exec(userData)
 
     await expect(userCreateService.exec(userData)).rejects.toEqual(
-      new AppError(Messages.USER_VALIDATE_DUPLICATED_EMAIL, 400)
+      new AppError(Messages.USER_VALIDATE_DUPLICATED_EMAIL, 409)
     )
   })
 })

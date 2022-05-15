@@ -1,4 +1,4 @@
-import printErrorMessage from '../utils/printErrorMessage'
+import printErrorMessage from '@utils/printErrorMessage'
 
 export default class AppError extends Error {
   public readonly message: string

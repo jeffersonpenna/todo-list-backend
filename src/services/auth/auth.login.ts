@@ -35,6 +35,8 @@ class AuthLoginService {
   }
 
   private generateAuthToken (user: User): string {
+    console.log(JWT_SECRET, '-----------------------')
+
     const payload = {
       userId: user.id,
       userName: `${user.firstName} ${user.lastName}`
