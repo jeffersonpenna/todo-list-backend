@@ -11,7 +11,12 @@ class ProjectListService {
       select: {
         id: true,
         name: true
-      }
+      },
+      orderBy: [
+        {
+          createdAt: 'desc'
+        }
+      ]
     })
 
     return projects

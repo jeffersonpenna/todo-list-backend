@@ -19,5 +19,10 @@ router
   .route('/')
   .post(authSession, validate(projectValidation.create()), projectController.create)
   .get(authSession, projectController.list)
+  .put(authSession, validate(projectValidation.edit()), projectController.edit)
+
+router
+  .route('/:id')
+  .put(authSession, validate(projectValidation.edit()), projectController.edit)
 
 module.exports = router
