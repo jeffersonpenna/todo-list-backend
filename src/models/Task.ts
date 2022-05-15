@@ -3,6 +3,7 @@ import { Project } from '@models/Project'
 class Task {
   id?: string
   name: string
+  isDone?: boolean
   projectId: string
   project?: Project
 
