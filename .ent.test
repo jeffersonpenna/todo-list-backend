@@ -1,6 +1,0 @@
-NODE_ENV=development
-NODE_PORT=3000
-
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/todolist?schema=public
-
-JWT_SECRET=SLK4EOglfl612glxwoiwm5ownBg6D5IY8XhuhDgC
