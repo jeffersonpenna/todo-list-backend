@@ -1,7 +1,8 @@
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
-import messages from '../../constants/messages'
-import AppError from '../../errors/appError'
+
+import Messages from '@constants/messages'
+import AppError from '@config/appError'
 
 interface IUser {
   firstName: string
@@ -19,7 +20,7 @@ class UserCreateService {
       }
     })
 
-    if (userByEmail) throw new AppError(messages.USER_VALIDATE_DUPLICATED_EMAIL, 409)
+    if (userByEmail) throw new AppError(Messages.USER_VALIDATE_DUPLICATED_EMAIL, 409)
 
     userToCreate.password = await this.createPasswordHash(userToCreate.password)
 

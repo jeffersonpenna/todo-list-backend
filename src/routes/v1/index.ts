@@ -3,6 +3,7 @@ const healthcheckRoutes = require('./healthcheck')
 const usersRoutes = require('./users')
 const authRoutes = require('./auth')
 const projecsRoutes = require('./projects')
+const tasksRoutes = require('./tasks')
 
 const router = express.Router()
 
@@ -22,6 +23,10 @@ const defaultRoutes = [
   {
     path: '/projects',
     route: projecsRoutes
+  },
+  {
+    path: '/tasks',
+    route: tasksRoutes
   }
 ]
 

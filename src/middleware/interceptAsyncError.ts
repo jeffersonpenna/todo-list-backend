@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
-import AppError from '../errors/appError'
+
+import AppError from '@config/appError'
 
 function interceptAsyncError (err: Error, request: Request, response: Response, next: NextFunction) : Response<JSON> {
   if (err instanceof AppError) {

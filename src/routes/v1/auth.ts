@@ -1,6 +1,6 @@
 import express from 'express'
-import validate from 'src/middleware/validate'
-import authValidation from '../../validations/auth'
+import validate from '@middleware/validate'
+import authValidation from '@validations/auth'
 import authController from '@controllers/auth'
 
 const router = express.Router()

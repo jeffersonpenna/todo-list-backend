@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
-import Messages from '../../constants/messages'
-import AppError from '../../errors/appError'
+
+import Messages from '@constants/messages'
+import AppError from '@config/appError'
 
 interface IProjectNew {
   name: string

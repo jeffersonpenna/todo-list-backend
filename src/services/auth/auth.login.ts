@@ -1,8 +1,9 @@
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import Messages from '../../constants/messages'
-import AppError from '../../errors/appError'
+
+import Messages from '@constants/messages'
+import AppError from '@config/appError'
 
 const JWT_SECRET = process.env.JWT_SECRET
 

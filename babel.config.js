@@ -17,7 +17,11 @@ module.exports = {
           '@controllers': './src/controllers',
           '@models': './src/models',
           '@services': './src/services',
-          '@config': './src/config'
+          '@config': './src/config',
+          '@middleware': './src/middleware',
+          '@constants': './src/constants',
+          '@utils': './src/utils',
+          '@validations': './src/validations'
         }
       }
     ]

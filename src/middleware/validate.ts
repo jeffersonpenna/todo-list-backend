@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express'
 import Joi from 'joi'
 
-import AppError from 'src/errors/appError'
-import pick from '../utils/pick'
+import AppError from '@config/appError'
+import pick from '@utils/pick'
 
 interface IValidation {
   params?: Joi.ObjectSchema
