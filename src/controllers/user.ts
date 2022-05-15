@@ -9,10 +9,6 @@ class UserController {
 
     res.status(201).json()
   }
-
-  public list = async (req: Request, res: Response): Promise<void> => {
-    res.json({ fim: true })
-  }
 }
 
 export default new UserController()

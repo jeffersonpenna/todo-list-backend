@@ -11,7 +11,6 @@ const router = express.Router()
 router
   .route('/')
   .post(validate(userValidation.create()), userController.create)
-  .get(userController.list)
 
 // router
 //   .route('/:userId')
