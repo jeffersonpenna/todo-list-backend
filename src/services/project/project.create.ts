@@ -1,4 +1,5 @@
-import { PrismaClient } from '@prisma/client'
+import { IProjectsRepository } from '@repositories/IProjectsRepositories'
+import { Project } from '@models/Project'
 
 import Messages from '@constants/messages'
 import AppError from '@config/appError'
@@ -9,31 +10,22 @@ interface IProjectNew {
 }
 
 class ProjectCreateService {
-  public exec = async (projectToCreate: IProjectNew): Promise<Project> => {
-    const prisma = new PrismaClient()
+  constructor (private projectsRepository: IProjectsRepository) {}
 
-    const projectByName: Project | null = await prisma.project.findFirst({
-      where: {
-        name: projectToCreate.name,
-        userId: projectToCreate.userId
-      }
-    })
+  public exec = async (projectToCreate: IProjectNew): Promise<Project> => {
+    const projectByName = await this.projectsRepository.findByNameAndUser(projectToCreate.name, projectToCreate.userId)
 
     if (projectByName) throw new AppError(Messages.PROJECT_ALREADY_EXISTS, 409)
 
-    const project = await prisma.project.create({
-      data: {
-        name: projectToCreate.name,
-        user: {
-          connect: {
-            id: projectToCreate.userId
-          }
-        }
-      }
+    const newProject = Project.create({
+      name: projectToCreate.name,
+      userId: projectToCreate.userId
     })
+
+    const project = await this.projectsRepository.create(newProject)
 
     return project
   }
 }
 
-export default new ProjectCreateService()
+export { ProjectCreateService }

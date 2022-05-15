@@ -1,8 +1,9 @@
-import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 
+import { IUsersRepository } from '@repositories/IUsersRepositories'
 import Messages from '@constants/messages'
 import AppError from '@config/appError'
+import { User } from '@models/User'
 
 interface IUser {
   firstName: string
@@ -12,21 +13,29 @@ interface IUser {
 }
 
 class UserCreateService {
-  public exec = async (userToCreate: IUser): Promise<void> => {
-    const prisma = new PrismaClient()
-    const userByEmail: User | null = await prisma.user.findUnique({
-      where: {
-        email: userToCreate.email
-      }
-    })
+  constructor (private usersRepository: IUsersRepository) {}
+
+  public exec = async ({
+    firstName,
+    lastName,
+    email,
+    password
+  }: IUser): Promise<User> => {
+    const userByEmail = await this.usersRepository.findByEmail(email)
 
     if (userByEmail) throw new AppError(Messages.USER_VALIDATE_DUPLICATED_EMAIL, 409)
 
-    userToCreate.password = await this.createPasswordHash(userToCreate.password)
+    password = await this.createPasswordHash(password)
 
-    await prisma.user.create({
-      data: userToCreate
+    const userToCreate = User.create({
+      firstName,
+      lastName,
+      email,
+      password
     })
+
+    const user = await this.usersRepository.create(userToCreate)
+    return user
   }
 
   private async createPasswordHash (password: string): Promise<string> {
@@ -35,4 +44,4 @@ class UserCreateService {
   }
 }
 
-export default new UserCreateService()
+export { UserCreateService }

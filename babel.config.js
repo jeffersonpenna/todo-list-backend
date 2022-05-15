@@ -21,7 +21,8 @@ module.exports = {
           '@middleware': './src/middleware',
           '@constants': './src/constants',
           '@utils': './src/utils',
-          '@validations': './src/validations'
+          '@validations': './src/validations',
+          '@repositories': './src/repositories'
         }
       }
     ]

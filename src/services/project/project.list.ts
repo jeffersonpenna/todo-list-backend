@@ -1,25 +1,13 @@
-import { PrismaClient } from '@prisma/client'
+import { IProjectsRepository } from '@repositories/IProjectsRepositories'
+import { Project } from '@models/Project'
 
 class ProjectListService {
+  constructor (private projectsRepository: IProjectsRepository) {}
+
   public exec = async (userId: string): Promise<Array<Project>> => {
-    const prisma = new PrismaClient()
-
-    const projects: Project[] = await prisma.project.findMany({
-      where: {
-        userId
-      },
-      orderBy: [
-        {
-          createdAt: 'desc'
-        }
-      ],
-      include: {
-        tasks: true
-      }
-    })
-
+    const projects = await this.projectsRepository.list(userId)
     return projects
   }
 }
 
-export default new ProjectListService()
+export { ProjectListService }

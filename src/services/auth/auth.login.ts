@@ -1,9 +1,10 @@
-import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 import Messages from '@constants/messages'
 import AppError from '@config/appError'
+import { IUsersRepository } from '@repositories/IUsersRepositories'
+import { User } from '@models/User'
 
 const JWT_SECRET = process.env.JWT_SECRET
 
@@ -17,13 +18,10 @@ interface IAuthResponse {
 }
 
 class AuthLoginService {
+  constructor (private usersRepository: IUsersRepository) {}
+
   public exec = async (userCredentials: IAuth): Promise<IAuthResponse> => {
-    const prisma = new PrismaClient()
-    const userByEmail: User | null = await prisma.user.findUnique({
-      where: {
-        email: userCredentials.email
-      }
-    })
+    const userByEmail = await this.usersRepository.findByEmail(userCredentials.email)
 
     if (!userByEmail) throw new AppError(Messages.AUTH_INVALID_CREDENTIALS, 401)
 
@@ -50,4 +48,4 @@ class AuthLoginService {
   }
 }
 
-export default new AuthLoginService()
+export { AuthLoginService }

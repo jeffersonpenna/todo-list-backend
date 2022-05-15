@@ -1,11 +1,14 @@
 import { Request, Response } from 'express'
-import AuthService from '@services/auth/auth.login'
+import { AuthLoginService } from '@services/auth/auth.login'
+import { PrismaUsersRepository } from '@repositories/prisma/PrismaUsersRepository'
 
 class AuthController {
   public login = async (req: Request, res: Response): Promise<void> => {
+    const UsersRepository = new PrismaUsersRepository()
     const { email, password } = req.body
 
-    const result = await AuthService.exec({ email, password })
+    const authLoginService = new AuthLoginService(UsersRepository)
+    const result = await authLoginService.exec({ email, password })
 
     res.status(200).json(result)
   }
