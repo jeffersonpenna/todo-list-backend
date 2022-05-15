@@ -24,5 +24,6 @@ router
 router
   .route('/:id')
   .put(authSession, validate(projectValidation.edit()), projectController.edit)
+  .delete(authSession, validate(projectValidation.delete()), projectController.delete)
 
 module.exports = router

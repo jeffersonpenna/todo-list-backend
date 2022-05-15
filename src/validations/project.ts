@@ -19,6 +19,14 @@ class ProjectValidation {
       })
     }
   }
+
+  public static delete = () => {
+    return {
+      params: Joi.object().keys({
+        id: Joi.string().required()
+      })
+    }
+  }
 }
 
 export default ProjectValidation
