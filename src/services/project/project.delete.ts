@@ -8,11 +8,11 @@ interface IProjectDelete {
   userId: string
 }
 
-class ProjectEditService {
+class ProjectDeleteService {
   public exec = async (projectToDelete: IProjectDelete): Promise<void> => {
     const prisma = new PrismaClient()
 
-    const projectById: Project | null = await prisma.project.findFirst({
+    const projectById: Project | null = await prisma.project.findUnique({
       where: {
         id: projectToDelete.id
       }
@@ -20,6 +20,12 @@ class ProjectEditService {
 
     if (!projectById) throw new AppError(Messages.PROJECT_NOT_FOUND, 400)
     if (projectById.userId !== projectToDelete.userId) throw new AppError(Messages.INVALID_PERMISSION, 403)
+
+    await prisma.task.deleteMany({
+      where: {
+        projectId: projectToDelete.id
+      }
+    })
 
     await prisma.project.delete({
       where: {
@@ -29,4 +35,4 @@ class ProjectEditService {
   }
 }
 
-export default new ProjectEditService()
+export default new ProjectDeleteService()

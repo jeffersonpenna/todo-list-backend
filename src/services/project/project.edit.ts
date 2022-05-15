@@ -13,7 +13,7 @@ class ProjectEditService {
   public exec = async (projectToEdit: IProjectEdit): Promise<Project> => {
     const prisma = new PrismaClient()
 
-    const projectById: Project | null = await prisma.project.findFirst({
+    const projectById: Project | null = await prisma.project.findUnique({
       where: {
         id: projectToEdit.id
       }

@@ -4,5 +4,6 @@ export default {
   AUTH_INVALID_TOKEN: 'Invalid session token',
   PROJECT_ALREADY_EXISTS: 'This project already exists',
   PROJECT_NOT_FOUND: 'The project was not found',
-  INVALID_PERMISSION: "You don't have permission to make this operation"
+  INVALID_PERMISSION: "You don't have permission to make this operation",
+  TASK_NOT_FOUND: 'The task was not found'
 }
