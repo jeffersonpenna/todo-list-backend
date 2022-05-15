@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-class UsersValidation {
+class UserValidation {
   public static create = () => {
     return {
       body: Joi.object().keys({
@@ -13,4 +13,4 @@ class UsersValidation {
   }
 }
 
-export default UsersValidation
+export default UserValidation

@@ -11,7 +11,7 @@ interface IUser {
 }
 
 class UserCreateService {
-  public exec = async (userToCreate: IUser): Promise<Boolean> => {
+  public exec = async (userToCreate: IUser): Promise<void> => {
     const prisma = new PrismaClient()
     const userByEmail: User | null = await prisma.user.findUnique({
       where: {
@@ -23,11 +23,9 @@ class UserCreateService {
 
     userToCreate.password = await this.createPasswordHash(userToCreate.password)
 
-    const user: User = await prisma.user.create({
+    await prisma.user.create({
       data: userToCreate
     })
-
-    return user
   }
 
   private async createPasswordHash (password: string): Promise<string> {

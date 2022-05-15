@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import messages from '../../constants/messages'
+import Messages from '../../constants/messages'
 import AppError from '../../errors/appError'
 
 const JWT_SECRET = process.env.JWT_SECRET
@@ -24,11 +24,11 @@ class AuthLoginService {
       }
     })
 
-    if (!userByEmail) throw new AppError(messages.AUTH_INVALID_CREDENTIALS, 401)
+    if (!userByEmail) throw new AppError(Messages.AUTH_INVALID_CREDENTIALS, 401)
 
     const isValidPassword = await bcrypt.compare(userCredentials.password, userByEmail.password)
 
-    if (!isValidPassword) throw new AppError(messages.AUTH_INVALID_CREDENTIALS, 401)
+    if (!isValidPassword) throw new AppError(Messages.AUTH_INVALID_CREDENTIALS, 401)
 
     const token = this.generateAuthToken(userByEmail)
 
