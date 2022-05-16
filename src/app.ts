@@ -1,6 +1,7 @@
 import express from 'express'
 import 'express-async-errors'
 import cors from 'cors'
+import helmet from 'helmet'
 import 'dotenv/config'
 
 import interceptAsyncError from './middleware/interceptAsyncError'
@@ -9,6 +10,7 @@ const routes = require('./routes/v1')
 
 const app = express()
 
+app.use(helmet())
 app.use(express.json())
 
 const allowlist = ['http://localhost:3001']
