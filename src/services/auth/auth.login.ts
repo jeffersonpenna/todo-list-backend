@@ -15,6 +15,10 @@ interface IAuth {
 
 interface IAuthResponse {
   token: string
+  user: {
+    firstName: string
+    lastName: string
+  }
 }
 
 class AuthLoginService {
@@ -31,12 +35,10 @@ class AuthLoginService {
 
     const token = this.generateAuthToken(userByEmail)
 
-    return { token }
+    return { token, user: { firstName: userByEmail.firstName, lastName: userByEmail.lastName } }
   }
 
   private generateAuthToken (user: User): string {
-    console.log(JWT_SECRET, '-----------------------')
-
     const payload = {
       userId: user.id,
       userName: `${user.firstName} ${user.lastName}`
